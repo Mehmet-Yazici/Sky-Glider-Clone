@@ -49,12 +49,16 @@ public class Player : MonoBehaviour
             playerTransform.rotation = top_bone.rotation;
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
         {
-            /*if (GetComponent<Player>().EnteredTrigger)
-                ThrowBall();*/
-            //Invoke("ThrowBall",0.31f);
+            anim.enabled = true;
+            anim.SetBool("isGliding", true);
         }
+        else
+        {
+            anim.SetBool("isGliding", false);
+        }
+
         if (GetComponent<Player>().EnteredTrigger){ 
             ThrowBall();
             EnteredTrigger = false;
@@ -65,8 +69,7 @@ public class Player : MonoBehaviour
     {
         onStick = false;
         rb.useGravity = true;
-        anim.enabled = true;
-        anim.SetBool("isGliding", true);
+        rb.AddTorque(1000f, 0f, 0f,ForceMode.Force);
         rb.AddForce(throwVec * 100f);
     }
 

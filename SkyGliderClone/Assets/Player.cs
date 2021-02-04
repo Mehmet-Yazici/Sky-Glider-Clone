@@ -12,15 +12,22 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     Vector3 throwVec;
     bool onStick = true;
-    
-   
+    bool EnteredTrigger;
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "throw trigger")
+            EnteredTrigger = true;
+    }
+
+
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         playerTransform = GetComponent<Transform>();
-        throwVec = new Vector3(0f, moveSpeed, 0f);
+        throwVec = new Vector3(0f, moveSpeed * 0.1f,moveSpeed);
         
     }
     // Start is called before the first frame update
@@ -41,11 +48,17 @@ public class Player : MonoBehaviour
             playerTransform.position = top_bone.position;
             playerTransform.rotation = top_bone.rotation;
         }
-        
+
         if (Input.GetMouseButtonDown(1))
         {
-            Invoke("ThrowBall",0.31f);
-        }   
+            /*if (GetComponent<Player>().EnteredTrigger)
+                ThrowBall();*/
+            //Invoke("ThrowBall",0.31f);
+        }
+        if (GetComponent<Player>().EnteredTrigger){ 
+            ThrowBall();
+            EnteredTrigger = false;
+        }
     }
 
     void ThrowBall()
@@ -54,7 +67,7 @@ public class Player : MonoBehaviour
         rb.useGravity = true;
         anim.enabled = true;
         anim.SetBool("isGliding", true);
-        rb.AddForce(rb.transform.forward * moveSpeed * 100f);
+        rb.AddForce(throwVec * 100f);
     }
 
     

@@ -30,7 +30,7 @@ public class Stick : MonoBehaviour
         {
             anim.SetBool("released", true);
             anim.SetBool("isBending", false);
-            Debug.Log(motionTimeTemp);
+            
         }
 
         if (Input.GetMouseButton(0))
@@ -44,12 +44,15 @@ public class Stick : MonoBehaviour
         }
         else
         {
-            motionTimeTemp -= 0.026f;
+            /*motionTimeTemp -= 0.026f;
             if (motionTimeTemp < 0)
             {
                 motionTimeTemp =0f;
             }
-            anim.SetFloat("motionTime", motionTimeTemp);
+            anim.SetFloat("motionTime", motionTimeTemp);*/
+            anim.SetBool("isBending", false);
+            anim.SetBool("released", true);
+            
         }
     }
 }

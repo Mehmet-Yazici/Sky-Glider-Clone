@@ -26,12 +26,7 @@ public class Stick : MonoBehaviour
             anim.SetBool("isBending", true);
             anim.SetBool("released", false);
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            anim.SetBool("released", true);
-            anim.SetBool("isBending", false);
-            
-        }
+        
 
         if (Input.GetMouseButton(0))
         {

@@ -13,11 +13,15 @@ public class Player : MonoBehaviour
     Vector3 throwVec;
     bool onStick = true;
     bool EnteredTrigger;
+    public bool EnteredTriggerOnce=false;
 
     public void OnTriggerEnter(Collider other)
     {
         if (other.tag == "throw trigger")
+        { 
             EnteredTrigger = true;
+            EnteredTriggerOnce = true;
+        }
     }
 
 
@@ -69,7 +73,7 @@ public class Player : MonoBehaviour
     {
         onStick = false;
         rb.useGravity = true;
-        rb.AddTorque(1000f, 0f, 0f,ForceMode.Force);
+        rb.AddTorque(100f, 0f, 0f,ForceMode.Force);
         rb.AddForce(throwVec * 100f);
     }
 

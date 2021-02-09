@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         playerTransform = GetComponent<Transform>();
-        throwVec = new Vector3(0f, moveSpeed * 0.1f,moveSpeed);
+        throwVec = new Vector3(0f, moveSpeed * 0.8f,moveSpeed);
         
     }
     // Start is called before the first frame update
@@ -52,15 +52,42 @@ public class Player : MonoBehaviour
             playerTransform.position = top_bone.position;
             playerTransform.rotation = top_bone.rotation;
         }
-
-        if (Input.GetMouseButton(1))
-        {
-            anim.enabled = true;
-            anim.SetBool("isGliding", true);
-        }
         else
         {
-            anim.SetBool("isGliding", false);
+
+            if (Input.GetMouseButton(0))
+            {
+                anim.enabled = true;
+                anim.SetBool("isGliding", true);
+                rb.angularVelocity -= new Vector3(4f, 0f, 0f) * Time.deltaTime;
+                Debug.Log(playerTransform.rotation.eulerAngles.x);
+                /*if(rb.angularVelocity.x > 0) { 
+                    rb.angularVelocity -= new Vector3(16f, 0f, 0f ) * Time.deltaTime;
+                    
+                    Debug.Log(playerTransform.rotation.eulerAngles.x);
+                }
+                else if(playerTransform.rotation.x >100 ||(playerTransform.rotation.x <-90f && playerTransform.rotation.x > -180f)){
+                    playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(-95f, 0f, 0f), 750f * Time.deltaTime);
+                } 
+                else
+                {
+                    rb.angularVelocity = new Vector3(0f, 0f, 0f);
+                    playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(90f, 0f, 0f), 750f * Time.deltaTime);
+                }*/
+
+            }
+            else
+            {
+                anim.SetBool("isGliding", false);
+                
+            }
+
+
+            if (Input.GetMouseButton(1))
+            {
+                rb.angularVelocity = new Vector3(0f, 0f, 0f);
+                playerTransform.rotation.eulerAngles.Set(90f, playerTransform.rotation.eulerAngles.y, playerTransform.rotation.eulerAngles.z);
+            }
         }
 
         if (GetComponent<Player>().EnteredTrigger){ 

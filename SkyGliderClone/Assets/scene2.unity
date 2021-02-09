@@ -660,7 +660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1330306719}
   target2: {fileID: 760243407}
-  smoothSpeed: 0.00001
+  smoothSpeed: 0.00008
   offset: {x: 0, y: 5, z: -20}
   speed: 6
 --- !u!850595691 &1011994559

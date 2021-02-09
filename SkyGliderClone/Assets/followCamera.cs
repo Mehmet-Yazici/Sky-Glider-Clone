@@ -23,24 +23,36 @@ public class followCamera : MonoBehaviour
         {
             if (smoothSpeed < 0.8)
             {
-                smoothSpeed += 0.0001f;
+                smoothSpeed += 0.08f * Time.deltaTime;
             }
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
             transform.position = smoothedPosition;
 
-            var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed );
+            
 
             //transform.LookAt(target);
         }
         else
         {
-            var targetRotation = Quaternion.LookRotation(target2.transform.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed );
+            
             //transform.LookAt(target);
         }
 
         
     }
+
+    private void Update()
+    {
+        if (player.EnteredTriggerOnce)
+        {
+            var targetRotation = Quaternion.LookRotation(target.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed);
+        }
+        else
+        {
+            var targetRotation = Quaternion.LookRotation(target2.transform.position - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, speed);
+        } 
+     }
 }

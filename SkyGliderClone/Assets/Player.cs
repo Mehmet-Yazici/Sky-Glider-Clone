@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
     {
         onStick = false;
         rb.useGravity = true;
-        rb.AddTorque(100f, 0f, 0f,ForceMode.Force);
+        rb.AddTorque(800f, 0f, 0f,ForceMode.Force);
         rb.AddForce(throwVec * 100f);
     }
 

@@ -30,7 +30,7 @@ public class Stick : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            motionTimeTemp += 0.0058f;
+            motionTimeTemp += 0.8f * Time.deltaTime;
             if (motionTimeTemp > 1.223f)
             {
                 motionTimeTemp = 1.223f;

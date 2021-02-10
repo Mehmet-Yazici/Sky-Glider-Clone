@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     bool EnteredTrigger;
     public bool EnteredTriggerOnce=false;
     public int counter = 0;
-    int done = 0; //variable to check if addtorque has been used
+    bool doneTorque = false; //variable to check if addtorque has been used
+    bool Slowdown = false;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -33,7 +34,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         playerTransform = GetComponent<Transform>();
-        throwVec = new Vector3(0f, moveSpeed * 0.8f,moveSpeed);
+        throwVec = new Vector3(0f, moveSpeed * 0.2f,moveSpeed);
         
     }
     // Start is called before the first frame update
@@ -59,32 +60,33 @@ public class Player : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
-                done = 0;
+                doneTorque = false;
                 anim.enabled = true;
                 anim.SetBool("isGliding", true);
 
                 //if(rb.angularVelocity.x > 0) { rb.angularVelocity -= new Vector3(rb.angularVelocity.x / 500f, 0f, 0f) * Time.deltaTime; }
                 rb.angularVelocity = new Vector3(0.01f, 0f, 0f);
                 playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(90f, 0f, 0f), 300f * Time.deltaTime);
-                
+
+                Slowdown = true;
 
             }
             else
             {
+                Slowdown = false;
                 anim.SetBool("isGliding", false);
-                if (done == 0)
+                if (doneTorque == false)
                 {
                     rb.AddTorque(600f, 0f, 0f, ForceMode.Force);
-                    done = 1;
+                    doneTorque = true;
+
                 }
             }
 
 
             if (Input.GetMouseButton(1))
             {
-                //rb.angularVelocity = new Vector3(0f, 0f, 0f);
-                //playerTransform.rotation.eulerAngles.Set(90f, playerTransform.rotation.eulerAngles.y, playerTransform.rotation.eulerAngles.z);
-                //playerTransform.eulerAngles  .Set(90f, playerTransform.eulerAngles.y, playerTransform.eulerAngles.z);
+                
                 Vector3 tmp = playerTransform.eulerAngles;
                 tmp.x = 90f;
                 playerTransform.eulerAngles = tmp;
@@ -105,7 +107,16 @@ public class Player : MonoBehaviour
         rb.AddForce(throwVec * 100f);
     }
 
-    
+    private void FixedUpdate()
+    {
+
+        if (Slowdown)
+        {
+            rb.AddForce(-Physics.gravity / 2);
+        }
+    }
+
+
 
 
 }

@@ -661,7 +661,7 @@ MonoBehaviour:
   target: {fileID: 1330306719}
   target2: {fileID: 760243407}
   smoothSpeed: 0.00008
-  offset: {x: 0, y: 5, z: -20}
+  offset: {x: 0, y: 5, z: -30}
   speed: 6
 --- !u!850595691 &1011994559
 LightingSettings:
@@ -873,6 +873,7 @@ MonoBehaviour:
   top_bone: {fileID: 760243407}
   moveSpeed: 38
   EnteredTriggerOnce: 0
+  counter: 0
 --- !u!1 &1429431153
 GameObject:
   m_ObjectHideFlags: 0

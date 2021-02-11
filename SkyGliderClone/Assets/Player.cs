@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     bool Slowdown = false;
     float yDeg = 0f;
     float zDeg = 0f;
+    Swipe swiper;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -44,13 +45,17 @@ public class Player : MonoBehaviour
     {
         rb.useGravity = false;
         anim.enabled = false;
+        swiper = GameObject.Find("Swipe").GetComponent<Swipe>();
         
+
     }
 
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(swiper.SwipeDelta);
+        
         //on the stick
         if (onStick)
         {

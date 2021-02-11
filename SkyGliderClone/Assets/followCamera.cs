@@ -8,11 +8,13 @@ public class followCamera : MonoBehaviour
     public float smoothSpeed= 4f;
     public Vector3 offset;
     Player player;
+    
     public int speed = 5;
 
     private void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        
     }
 
 

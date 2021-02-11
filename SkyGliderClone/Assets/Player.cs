@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public Transform top_bone;
     Rigidbody rb;
     Animator anim;
-    Transform playerTransform;
+    public Transform playerTransform;
     public float moveSpeed;
     Vector3 throwVec;
     bool onStick = true;
@@ -16,10 +16,11 @@ public class Player : MonoBehaviour
     public bool EnteredTriggerOnce=false;
     public int counter = 0;
     bool doneTorque = false; //variable to check if addtorque has been used
-    bool Slowdown = false;
+    public bool Slowdown = false;
     float yDeg = 0f;
     float zDeg = 0f;
     Swipe swiper;
+    
 
     public void OnTriggerEnter(Collider other)
     {
@@ -73,7 +74,11 @@ public class Player : MonoBehaviour
 
                 //if(rb.angularVelocity.x > 0) { rb.angularVelocity -= new Vector3(rb.angularVelocity.x / 500f, 0f, 0f) * Time.deltaTime; }
                 rb.angularVelocity = new Vector3(0.01f, 0f, 0f);
-                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(90f, yDeg, 0f), 300f * Time.deltaTime);
+                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0f), 300f * Time.deltaTime);
+
+                //turning motion
+                yDeg = swiper.SwipeDelta.x / 6.5f;
+                //turning motion done
 
                 Slowdown = true;
 
@@ -91,19 +96,7 @@ public class Player : MonoBehaviour
             }
 
 
-            if (Input.GetMouseButton(1))
-            {
-
-                /*Vector3 tmp = playerTransform.eulerAngles;
-                tmp.x = 90f;
-                playerTransform.eulerAngles = tmp;*/
-
-                //playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(90f, 45f, 0f), 300f * Time.deltaTime);
-                yDeg += 30f * Time.deltaTime;
-                //rb.velocity = Vector3.Scale(rb.velocity,playerTransform.forward) * Time.deltaTime *15;
-                //Debug.Log(playerTransform.up);
-                rb.AddForce(Vector3.right*4500*Time.deltaTime);
-            }
+            
         }
 
         if (GetComponent<Player>().EnteredTrigger){ 
@@ -117,15 +110,30 @@ public class Player : MonoBehaviour
         onStick = false;
         rb.useGravity = true;
         rb.AddTorque(800f, 0f, 0f,ForceMode.Force);
-        rb.AddForce(throwVec * 100f);
+        rb.AddForce(throwVec * 85f);
     }
 
     private void FixedUpdate()
     {
+        if (Input.GetMouseButton(0))
+        {
+
+            if (playerTransform.rotation.x > 96 && playerTransform.rotation.x < 100)
+            { 
+                Vector3 velocity = rb.velocity;
+                float magnitude = velocity.magnitude;
+                velocity = playerTransform.up * magnitude;
+
+
+                rb.velocity = velocity;
+            }
+            
+            
+        }
 
         if (Slowdown)
         {
-            rb.AddForce(-Physics.gravity / 2);
+            //rb.AddForce(-Physics.gravity / 2);
         }
     }
 

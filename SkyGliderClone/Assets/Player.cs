@@ -118,8 +118,10 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
 
-            if (playerTransform.rotation.x > 96 && playerTransform.rotation.x < 100)
-            { 
+            Debug.Log(playerTransform.rotation.eulerAngles.x);
+            if (180-playerTransform.rotation.eulerAngles.x > 96 && 180-playerTransform.rotation.eulerAngles.x < 100)
+            {
+                
                 Vector3 velocity = rb.velocity;
                 float magnitude = velocity.magnitude;
                 velocity = playerTransform.up * magnitude;

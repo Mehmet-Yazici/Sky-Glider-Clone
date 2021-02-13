@@ -32,18 +32,9 @@ public class followCamera : MonoBehaviour
 
             if (player.Slowdown)
             {
-                
-                counter += 285f * Time.deltaTime;
-                if (counter > 100f)
-                {
-                    offset = new Vector3(-30 * player.playerTransform.up.x, 5f, -30f * player.playerTransform.up.z);
-                    newOffset = offset;
-                }
-                else
-                {
-                    newOffset = offset;
-                }
-                
+                offset = new Vector3(-30f * Vector3.Normalize(player.rb.velocity).x, 5f, -30f * Vector3.Normalize(player.rb.velocity).z);
+                newOffset = offset;
+
             }
             else
             {

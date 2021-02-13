@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Transform top_bone;
-    Rigidbody rb;
+    public Rigidbody rb;
     Animator anim;
     public Transform playerTransform;
     public float moveSpeed;
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
                 //if(rb.angularVelocity.x > 0) { rb.angularVelocity -= new Vector3(rb.angularVelocity.x / 500f, 0f, 0f) * Time.deltaTime; }
                 rb.angularVelocity = new Vector3(0.01f, 0f, 0f);
-                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0f), 300f * Time.deltaTime);
+                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0f), 450f * Time.deltaTime);
 
                 //turning motion
                 yDeg = yDegRecorder + swiper.SwipeDelta.x / 8f;

@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     bool doneTorque = false; //variable to check if addtorque has been used
     public bool Slowdown = false;
     float yDeg = 0f;
+    float yDegRecorder = 0f;
     float zDeg = 0f;
     Swipe swiper;
     
@@ -77,7 +78,7 @@ public class Player : MonoBehaviour
                 playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0f), 300f * Time.deltaTime);
 
                 //turning motion
-                yDeg = swiper.SwipeDelta.x / 6.5f;
+                yDeg = yDegRecorder + swiper.SwipeDelta.x / 8f;
                 //turning motion done
 
                 Slowdown = true;
@@ -87,6 +88,7 @@ public class Player : MonoBehaviour
             {
                 Slowdown = false;
                 anim.SetBool("isGliding", false);
+                yDegRecorder = yDeg;
                 if (doneTorque == false)
                 {
                     rb.AddRelativeTorque(600f,0f,0f, ForceMode.Force);

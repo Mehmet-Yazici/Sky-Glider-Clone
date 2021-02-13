@@ -8,7 +8,8 @@ public class followCamera : MonoBehaviour
     public float smoothSpeed= 4f;
     Vector3 offset = new Vector3(0f,5f,-30f);
     Player player;
-    
+    float counter = 0f;
+
     public int speed = 5;
 
     private void Start()
@@ -31,15 +32,23 @@ public class followCamera : MonoBehaviour
 
             if (player.Slowdown)
             {
-
-                //newOffset = Quaternion.Inverse(Quaternion.Euler(player.playerTransform.up)) * offset;
-                //newOffset = new Vector3(offset.x * player.playerTransform.up.x, offset.y * player.playerTransform.up.y, offset.z * player.playerTransform.up.z);
-                offset = new Vector3(-30 * player.playerTransform.up.x, 5f, -30f * player.playerTransform.up.z);
-                newOffset = offset;
+                
+                counter += 285f * Time.deltaTime;
+                if (counter > 100f)
+                {
+                    offset = new Vector3(-30 * player.playerTransform.up.x, 5f, -30f * player.playerTransform.up.z);
+                    newOffset = offset;
+                }
+                else
+                {
+                    newOffset = offset;
+                }
+                
             }
             else
             {
                 newOffset = offset;
+                counter = 0f;
             }
 
             Debug.Log(player.playerTransform.up);

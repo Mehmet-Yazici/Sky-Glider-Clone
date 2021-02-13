@@ -262,8 +262,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxes:
-  - {fileID: 2791068905201620877, guid: 9e3ff872512558a4a9ccf42a5fa20ebb, type: 3}
-  - {fileID: 4717555651665016829, guid: 805c3d8999021414ca294f3f1cb71f03, type: 3}
+  - {fileID: 8604061923957961156, guid: 9e3ff872512558a4a9ccf42a5fa20ebb, type: 3}
+  - {fileID: 1294505858847922296, guid: 805c3d8999021414ca294f3f1cb71f03, type: 3}
   spawnAmount: 50
   spawnValues: []
 --- !u!4 &188113481

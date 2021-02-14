@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3168721346154268785}
   m_Layer: 0
   m_Name: randomCylinder1
-  m_TagString: Untagged
+  m_TagString: Cylinder
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1294505858847922296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.2857704, y: 11.25413, z: 52.28837}
-  m_LocalScale: {x: 13, y: 10.75413, z: 13}
+  m_LocalScale: {x: 16, y: 10.75413, z: 16}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0

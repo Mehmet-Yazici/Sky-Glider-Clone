@@ -23,16 +23,35 @@ public class Player : MonoBehaviour
     float zDeg = 0f;
     Swipe swiper;
     float swipeDeltaTotal = 0f;
+    bool boxTrigger = false;
+    bool cylTrigger = false;
+    bool jumpDone = false;
     
 
-    public void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         if (other.tag == "throw trigger")
         { 
             EnteredTrigger = true;
             EnteredTriggerOnce = true;
         }
+        else if(other.tag == "Box"){
+            Debug.Log("INNNNN");
+            boxTrigger = true;
+
+        }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Box")
+        {
+            Debug.Log("INNNNN");
+            boxTrigger = true;
+
+        }
+    }
+    
 
 
 
@@ -60,7 +79,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         //on the stick
         if (onStick)
@@ -68,7 +87,31 @@ public class Player : MonoBehaviour
             playerTransform.position = top_bone.position;
             playerTransform.rotation = top_bone.rotation;
         }
-        else
+        else if (boxTrigger) //use this movement until jump is over
+        {
+            
+            
+            if (!jumpDone) { //check if done once
+                rb.AddForce(new Vector3(0, 54f, 0), ForceMode.Impulse);
+                jumpDone = true;
+            }
+            
+            rb.AddForce(new Vector3(0, -18.8f * Time.deltaTime, 0), ForceMode.Impulse);
+
+
+            if (rb.velocity.y > 5.2f)
+            {
+                if (rb.velocity.y < 10f)
+                {
+                    boxTrigger = false;
+                    jumpDone = false;
+                    swiper.Reset();
+                }
+            }
+                
+
+        }
+        else  //ready to fly
         {
 
             if (Input.GetMouseButton(0))
@@ -80,14 +123,15 @@ public class Player : MonoBehaviour
                 
                 rb.angularVelocity = new Vector3(0.01f, 0f, 0f);
                 playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0), 450f * Time.deltaTime);
+                //playerTransform.RotateAround(new Vector3(playerTransform.position.x, playerTransform.position.y +5 , playerTransform.position.z), Vector3.forward,100 * Time.deltaTime);
+                //playerTransform.rotation = Quaternion.AngleAxis(0, Vector3.up)   * Quaternion.AngleAxis(98f, Vector3.right) * Quaternion.AngleAxis(yDeg, Vector3.forward);
+                //playerTransform.rotation = Quaternion.Euler(0f, 0, yDeg) * Quaternion.Euler(98f, 0, 0) ;
                 
+
+
                 //turning motion
                 yDeg = yDegRecorder + swiper.SwipeDelta.x / 8f;
                 //turning motion done
-
-                
-
-
 
                 Slowdown = true;
 
@@ -116,6 +160,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    
+
     void ThrowBall()
     {
         onStick = false;
@@ -126,22 +172,25 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Input.GetMouseButton(0))
+        if (!boxTrigger)
         {
-
-            
-            if (180-playerTransform.rotation.eulerAngles.x > 96 && 180-playerTransform.rotation.eulerAngles.x < 100)
+            if (Input.GetMouseButton(0))
             {
-                
-                Vector3 velocity = rb.velocity;
-                float magnitude = velocity.magnitude;
-                velocity = playerTransform.up * magnitude;
 
 
-                rb.velocity = velocity;
+                if (180 - playerTransform.rotation.eulerAngles.x > 96 && 180 - playerTransform.rotation.eulerAngles.x < 100)
+                {
+
+                    Vector3 velocity = rb.velocity;
+                    float magnitude = velocity.magnitude;
+                    velocity = playerTransform.up * magnitude;
+
+
+                    rb.velocity = velocity;
+                }
+
+
             }
-            
-            
         }
 
         if (Slowdown)

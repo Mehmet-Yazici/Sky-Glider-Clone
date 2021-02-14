@@ -18,15 +18,15 @@ public class Boxes : MonoBehaviour
         for (int i = 0; i<spawnAmount ;i++)
         {
             valsOK = false;
-            Vector3 vals = new Vector3(Random.Range(-150f, 150f), 0f, Random.Range(-200f, 180f));
+            Vector3 vals = new Vector3(Random.Range(-170f, 170f), 0f, Random.Range(-200f, 250f));
 
             //check to see if shapes intersect
             int c = 0;
             while (!valsOK)
             {
-               if (vals.x < spawnValues[c].x + 17 && vals.x > spawnValues[c].x - 17)
+               if (vals.x < spawnValues[c].x + 23 && vals.x > spawnValues[c].x - 23)
                {
-                    if (vals.z < spawnValues[c].z + 17 && vals.z > spawnValues[c].z - 17)
+                    if (vals.z < spawnValues[c].z + 23 && vals.z > spawnValues[c].z - 23)
                     {
                         vals = new Vector3(Random.Range(-200f, 200f), 2f + Random.Range(-6f, 12.5f), Random.Range(-210f, 285f));
                         c=0;    

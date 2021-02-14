@@ -55,7 +55,7 @@ public class Swipe : MonoBehaviour
         
     }
 
-    private void Reset()
+    public void Reset()
     {
         startTouch = swipeDelta = Vector2.zero;
     }
@@ -65,4 +65,5 @@ public class Swipe : MonoBehaviour
     public bool SwipeRight { get { return swipeLeft; } }
     public bool SwipeUp { get { return swipeLeft; } }
     public bool SwipeDown { get { return swipeLeft; } }
+    
 }

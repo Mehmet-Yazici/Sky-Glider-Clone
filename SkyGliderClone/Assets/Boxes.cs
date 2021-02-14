@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boxes : MonoBehaviour
 {
     public GameObject[] boxes;
-    public int spawnAmount = 64;
+    int spawnAmount = 95;
     public Vector3[] spawnValues ;
     bool valsOK = false;
     
@@ -18,28 +18,28 @@ public class Boxes : MonoBehaviour
         for (int i = 0; i<spawnAmount ;i++)
         {
             valsOK = false;
-            Vector3 vals = new Vector3(Random.Range(-170f, 170f), 0f, Random.Range(-200f, 250f));
+            Vector3 vals = new Vector3(Random.Range(-245f, 245f), 2f + Random.Range(-6f, 12.5f), Random.Range(-200f, 600f));
 
             //check to see if shapes intersect
             int c = 0;
             while (!valsOK)
             {
-               if (vals.x < spawnValues[c].x + 23 && vals.x > spawnValues[c].x - 23)
+               if (vals.x < spawnValues[c].x + 27 && vals.x > spawnValues[c].x - 27)
                {
-                    if (vals.z < spawnValues[c].z + 23 && vals.z > spawnValues[c].z - 23)
+                    if (vals.z < spawnValues[c].z + 27 && vals.z > spawnValues[c].z - 27)
                     {
                         vals = new Vector3(Random.Range(-200f, 200f), 2f + Random.Range(-6f, 12.5f), Random.Range(-210f, 285f));
-                        c=0;    
+                        c=-1;    
                     }
                }
                c++;
-                if (c == spawnAmount){ valsOK = true; }
+                if (c == spawnValues.Length){ valsOK = true; }
                 
             }
-            
+
             //done
 
-
+            Debug.Log(i);
             spawnValues[i] = vals;
         }
 

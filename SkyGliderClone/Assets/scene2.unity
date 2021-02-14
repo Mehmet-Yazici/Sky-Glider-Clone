@@ -264,7 +264,6 @@ MonoBehaviour:
   boxes:
   - {fileID: 8604061923957961156, guid: 9e3ff872512558a4a9ccf42a5fa20ebb, type: 3}
   - {fileID: 1294505858847922296, guid: 805c3d8999021414ca294f3f1cb71f03, type: 3}
-  spawnAmount: 50
   spawnValues: []
 --- !u!4 &188113481
 Transform:
@@ -656,6 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e03bbaef1980150429add928aa9dae71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motionTimeTemp: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,7 +1468,7 @@ MonoBehaviour:
   top_bone: {fileID: 760243407}
   rb: {fileID: 0}
   playerTransform: {fileID: 0}
-  moveSpeed: 38
+  moveSpeed: 30
   EnteredTriggerOnce: 0
   counter: 0
   Slowdown: 0

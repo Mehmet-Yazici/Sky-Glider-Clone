@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stick : MonoBehaviour
 {
     Animator anim;
-    float motionTimeTemp = 0f;
+    public float motionTimeTemp = 0f;
     Swipe swiper;
 
     // Start is called before the first frame update

@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     bool boxTrigger = false;
     bool cylTrigger = false;
     bool jumpDone = false;
+    Stick stick;
     
 
     void OnTriggerEnter(Collider other)
@@ -35,19 +36,19 @@ public class Player : MonoBehaviour
             EnteredTrigger = true;
             EnteredTriggerOnce = true;
         }
-        else if(other.tag == "Box"){
-            Debug.Log("INNNNN");
-            boxTrigger = true;
-
-        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Box")
         {
-            Debug.Log("INNNNN");
             boxTrigger = true;
+
+        }
+        if (collision.gameObject.tag == "Cylinder")
+        {
+            cylTrigger = true;
 
         }
     }
@@ -60,23 +61,19 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         playerTransform = GetComponent<Transform>();
+        
         throwVec = new Vector3(0f, moveSpeed * 0.2f,moveSpeed);
         
     }
-    // Start is called before the first frame update
+    
     void Start()
     {
         rb.useGravity = false;
         anim.enabled = false;
         swiper = GameObject.Find("Swipe").GetComponent<Swipe>();
-       
-
-        
-
+        stick = GameObject.Find("Stick_long_Animated").GetComponent<Stick>();
     }
 
-
-    // Update is called once per frame
     void Update()
     {
 
@@ -89,8 +86,10 @@ public class Player : MonoBehaviour
         }
         else if (boxTrigger) //use this movement until jump is over
         {
-            
-            
+            swiper.Reset();
+            Slowdown = false;
+            anim.SetBool("isGliding", false);
+
             if (!jumpDone) { //check if done once
                 rb.AddForce(new Vector3(0, 54f, 0), ForceMode.Impulse);
                 jumpDone = true;
@@ -111,6 +110,33 @@ public class Player : MonoBehaviour
                 
 
         }
+        else if (cylTrigger) //use this movement until jump is over
+        {
+            swiper.Reset();
+            Slowdown = false;
+            anim.SetBool("isGliding", false);
+
+            if (!jumpDone)
+            { //check if done once
+                rb.AddForce(new Vector3(0, 108f, 0), ForceMode.Impulse);
+                jumpDone = true;
+            }
+
+            rb.AddForce(new Vector3(0, -32.8f * Time.deltaTime, 0), ForceMode.Impulse);
+
+
+            if (rb.velocity.y > 5.2f)
+            {
+                if (rb.velocity.y < 10f)
+                {
+                    cylTrigger = false;
+                    jumpDone = false;
+                    swiper.Reset();
+                }
+            }
+
+
+        }
         else  //ready to fly
         {
 
@@ -125,7 +151,7 @@ public class Player : MonoBehaviour
                 playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0), 450f * Time.deltaTime);
                 //playerTransform.RotateAround(new Vector3(playerTransform.position.x, playerTransform.position.y +5 , playerTransform.position.z), Vector3.forward,100 * Time.deltaTime);
                 //playerTransform.rotation = Quaternion.AngleAxis(0, Vector3.up)   * Quaternion.AngleAxis(98f, Vector3.right) * Quaternion.AngleAxis(yDeg, Vector3.forward);
-                //playerTransform.rotation = Quaternion.Euler(0f, 0, yDeg) * Quaternion.Euler(98f, 0, 0) ;
+                //playerTransform.rotation = Quaternion.Euler(0f, 0, yDeg) * Quaternion.Euler(98f, 0, 0) ;         why don't any of these work??
                 
 
 
@@ -167,7 +193,7 @@ public class Player : MonoBehaviour
         onStick = false;
         rb.useGravity = true;
         rb.AddTorque(800f, 0f, 0f,ForceMode.Force);
-        rb.AddForce(throwVec * 85f);
+        rb.AddForce(throwVec * 75f * stick.motionTimeTemp / 0.7f);
     }
 
     private void FixedUpdate()

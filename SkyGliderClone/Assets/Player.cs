@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Transform top_bone;
+    GameObject meshPlayer;
     public Rigidbody rb;
     Animator anim;
     public Transform playerTransform;
@@ -21,6 +22,7 @@ public class Player : MonoBehaviour
     float yDegRecorder = 0f;
     float zDeg = 0f;
     Swipe swiper;
+    float swipeDeltaTotal = 0f;
     
 
     public void OnTriggerEnter(Collider other)
@@ -48,6 +50,8 @@ public class Player : MonoBehaviour
         rb.useGravity = false;
         anim.enabled = false;
         swiper = GameObject.Find("Swipe").GetComponent<Swipe>();
+       
+
         
 
     }
@@ -57,7 +61,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         
-        
+
         //on the stick
         if (onStick)
         {
@@ -73,19 +77,24 @@ public class Player : MonoBehaviour
                 anim.enabled = true;
                 anim.SetBool("isGliding", true);
 
-                //if(rb.angularVelocity.x > 0) { rb.angularVelocity -= new Vector3(rb.angularVelocity.x / 500f, 0f, 0f) * Time.deltaTime; }
+                
                 rb.angularVelocity = new Vector3(0.01f, 0f, 0f);
-                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0f), 450f * Time.deltaTime);
-
+                playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0), 450f * Time.deltaTime);
+                
                 //turning motion
                 yDeg = yDegRecorder + swiper.SwipeDelta.x / 8f;
                 //turning motion done
+
+                
+
+
 
                 Slowdown = true;
 
             }
             else
             {
+                
                 Slowdown = false;
                 anim.SetBool("isGliding", false);
                 yDegRecorder = yDeg;
@@ -120,7 +129,7 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
 
-            Debug.Log(playerTransform.rotation.eulerAngles.x);
+            
             if (180-playerTransform.rotation.eulerAngles.x > 96 && 180-playerTransform.rotation.eulerAngles.x < 100)
             {
                 

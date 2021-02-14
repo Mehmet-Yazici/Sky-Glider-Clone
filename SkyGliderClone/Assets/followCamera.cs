@@ -32,6 +32,7 @@ public class followCamera : MonoBehaviour
 
             if (player.Slowdown)
             {
+                
                 offset = new Vector3(-30f * Vector3.Normalize(player.rb.velocity).x, 5f, -30f * Vector3.Normalize(player.rb.velocity).z);
                 newOffset = offset;
 
@@ -42,7 +43,7 @@ public class followCamera : MonoBehaviour
                 counter = 0f;
             }
 
-            Debug.Log(player.playerTransform.up);
+            
 
             Vector3 desiredPosition = target.position + newOffset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);

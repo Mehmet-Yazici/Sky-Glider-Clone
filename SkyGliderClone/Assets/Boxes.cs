@@ -5,7 +5,7 @@ using UnityEngine;
 public class Boxes : MonoBehaviour
 {
     public GameObject[] boxes;
-    public int spawnAmount = 50;
+    public int spawnAmount = 64;
     public Vector3[] spawnValues ;
     bool valsOK = false;
     
@@ -28,7 +28,7 @@ public class Boxes : MonoBehaviour
                {
                     if (vals.z < spawnValues[c].z + 17 && vals.z > spawnValues[c].z - 17)
                     {
-                        vals = new Vector3(Random.Range(-180f, 180f), 0f, Random.Range(-200f, 180f));
+                        vals = new Vector3(Random.Range(-200f, 200f), 2f + Random.Range(-6f, 12.5f), Random.Range(-210f, 285f));
                         c=0;    
                     }
                }

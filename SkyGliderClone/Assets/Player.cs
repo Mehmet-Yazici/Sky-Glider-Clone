@@ -44,14 +44,17 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Box")
         {
             boxTrigger = true;
+            collision.gameObject.GetComponent<ParticleSystem>().Play();
 
         }
         if (collision.gameObject.tag == "Cylinder")
         {
             cylTrigger = true;
-
+            collision.gameObject.GetComponent<ParticleSystem>().Play();
         }
     }
+
+    
     
 
 
@@ -86,12 +89,12 @@ public class Player : MonoBehaviour
         }
         else if (boxTrigger) //use this movement until jump is over
         {
-            swiper.Reset();
+            yDegRecorder = yDeg;
             Slowdown = false;
             anim.SetBool("isGliding", false);
 
             if (!jumpDone) { //check if done once
-                rb.AddForce(new Vector3(0, 54f, 0), ForceMode.Impulse);
+                rb.AddForce(new Vector3(0, 46f, 0), ForceMode.Impulse);
                 jumpDone = true;
             }
             
@@ -102,9 +105,11 @@ public class Player : MonoBehaviour
             {
                 if (rb.velocity.y < 10f)
                 {
-                    boxTrigger = false;
                     jumpDone = false;
-                    swiper.Reset();
+                    
+                    boxTrigger = false;
+                    
+                    
                 }
             }
                 
@@ -112,17 +117,18 @@ public class Player : MonoBehaviour
         }
         else if (cylTrigger) //use this movement until jump is over
         {
-            swiper.Reset();
+            yDegRecorder = yDeg;
+            
             Slowdown = false;
             anim.SetBool("isGliding", false);
 
             if (!jumpDone)
             { //check if done once
-                rb.AddForce(new Vector3(0, 108f, 0), ForceMode.Impulse);
+                rb.AddForce(new Vector3(0, 88f, 0), ForceMode.Impulse);
                 jumpDone = true;
             }
 
-            rb.AddForce(new Vector3(0, -32.8f * Time.deltaTime, 0), ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, -19.8f * Time.deltaTime, 0), ForceMode.Impulse);
 
 
             if (rb.velocity.y > 5.2f)
@@ -131,7 +137,7 @@ public class Player : MonoBehaviour
                 {
                     cylTrigger = false;
                     jumpDone = false;
-                    swiper.Reset();
+                    
                 }
             }
 
@@ -142,6 +148,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
+                
                 doneTorque = false;
                 anim.enabled = true;
                 anim.SetBool("isGliding", true);

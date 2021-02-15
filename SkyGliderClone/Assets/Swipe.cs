@@ -5,7 +5,7 @@ using UnityEngine;
 public class Swipe : MonoBehaviour
 {
     private bool tap, swipeLeft, swipeRight, swipeUp, swipeDown;
-    private bool isDragging = false;
+    public bool isDragging = false;
     private Vector2 startTouch, swipeDelta;
 
     private void Update()
@@ -58,8 +58,8 @@ public class Swipe : MonoBehaviour
     public void Reset()
     {
         startTouch = swipeDelta = Vector2.zero;
+        
     }
-
     public Vector2 SwipeDelta { get { return swipeDelta; } }
     public bool SwipeLeft {  get { return swipeLeft;}  }
     public bool SwipeRight { get { return swipeLeft; } }

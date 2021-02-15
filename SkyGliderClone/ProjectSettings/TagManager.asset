@@ -9,6 +9,7 @@ TagManager:
   - Swiper
   - Box
   - Cylinder
+  - ground
   layers:
   - Default
   - TransparentFX

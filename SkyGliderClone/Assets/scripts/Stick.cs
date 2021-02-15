@@ -7,6 +7,7 @@ public class Stick : MonoBehaviour
     Animator anim;
     public float motionTimeTemp = 0f;
     Swipe swiper;
+    bool motionDone = false;
 
     // Start is called before the first frame update
     private void Awake()
@@ -23,29 +24,39 @@ public class Stick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0))
+
+        if (!motionDone)
         {
-            anim.enabled = true;
-            anim.SetBool("isBending", true);
-            anim.SetBool("released", false);
+            if (Input.GetMouseButtonDown(0))
+            {
+                anim.enabled = true;
+                anim.SetBool("isBending", true);
+                anim.SetBool("released", false);
+            }
         }
+        
+        
         
 
         if (Input.GetMouseButton(0))
         {
-            motionTimeTemp = 0.0022f * -swiper.SwipeDelta.x ;
-            if (motionTimeTemp > 1.223f)
+            if (!motionDone)
             {
-                motionTimeTemp = 1.223f;
+                motionTimeTemp = 0.0022f * -swiper.SwipeDelta.x;
+                if (motionTimeTemp > 1.223f)
+                {
+                    motionTimeTemp = 1.223f;
+                }
+                anim.SetFloat("motionTime", motionTimeTemp);
             }
-            anim.SetFloat("motionTime", motionTimeTemp);
+            
         }
         else if (motionTimeTemp >0.5f) 
         {
             
             anim.SetBool("isBending", false);
             anim.SetBool("released", true);
+            motionDone = true;
 
         }
         else

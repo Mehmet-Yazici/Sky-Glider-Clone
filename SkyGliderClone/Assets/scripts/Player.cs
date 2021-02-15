@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
                 anim.SetBool("isGliding", false);
 
 
-                if (!jumpDone)
+                if (!jumpDone)               //adds jump velocity once
                 { //check if done once
                     rb.AddForce(new Vector3(0, 40f, 0), ForceMode.Impulse);
                     jumpDone = true;
@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
 
                 if (rb.velocity.y > 5.2f)
                 {
-                    if (rb.velocity.y < 10f)
+                    if (rb.velocity.y < 10f)            //checks to see when player can open their wings again
                     {
                         jumpDone = false;
 
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
 
                 if (rb.velocity.y > 5.2f)
                 {
-                    if (rb.velocity.y < 10f)
+                    if (rb.velocity.y < 10f)                   //checks to see when player can open their wings again
                     {
                         jumpDone = false;
                         cylTrigger = false;
@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
 
                     rb.angularVelocity = new Vector3(0.01f, 0f, 0f);
                     playerTransform.rotation = Quaternion.RotateTowards(playerTransform.rotation, Quaternion.Euler(98f, yDeg, 0), 450f * Time.deltaTime);
-                    //playerTransform.RotateAround(new Vector3(playerTransform.position.x, playerTransform.position.y +5 , playerTransform.position.z), Vector3.forward,100 * Time.deltaTime);
+                    //playerTransform.RotateAround(new Vector3(playerTransform.position.x, playerTransform.position.y +5 , playerTransform.position.z), Vector3.forward,100 * Time.deltaTime);      these are some of the attempts i made to fix gimbal lock
                     //playerTransform.rotation = Quaternion.AngleAxis(0, Vector3.up)   * Quaternion.AngleAxis(98f, Vector3.right) * Quaternion.AngleAxis(yDeg, Vector3.forward);
                     //playerTransform.rotation = Quaternion.Euler(0f, 0, yDeg) * Quaternion.Euler(98f, 0, 0) ;         why don't any of these work??
 
@@ -184,7 +184,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    playerParticles.Stop();
+                    playerParticles.Stop();              //close wings and keep spinning
                     Slowdown = false;
                     anim.SetBool("isGliding", false);
                     yDegRecorder = yDeg;
@@ -232,7 +232,7 @@ public class Player : MonoBehaviour
             {
 
 
-                if (180 - playerTransform.rotation.eulerAngles.x > 96 && 180 - playerTransform.rotation.eulerAngles.x < 100)
+                if (180 - playerTransform.rotation.eulerAngles.x > 96 && 180 - playerTransform.rotation.eulerAngles.x < 100)         //redirected velocity to follow direction of player
                 {
 
                     Vector3 velocity = rb.velocity;
